@@ -1,0 +1,41 @@
+<div class="container" style="display: flex; gap: 20px; padding: 20px;">
+  <div class="card" style="flex: 1; border: 1px solid #ccc; padding: 15px;">
+    <h2>Clientes</h2>
+    <ul>
+      @for (cliente of clientes(); track cliente.id) {
+        <li (click)="seleccionarCliente(cliente)" style="cursor: pointer; margin-bottom: 10px;">
+          <strong>{{ cliente.nombre }} {{ cliente.apellido }}</strong> <br>
+          <small>{{ cliente.email }}</small>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="card" style="flex: 2; border: 1px solid #ccc; padding: 15px;">
+    @if (clienteSeleccionado()) {
+      <h2>Cuentas de {{ clienteSeleccionado()?.nombre }}</h2>
+      <table border="1" style="width: 100%; text-align: left;">
+        <thead>
+          <tr>
+            <th>Nº Cuenta</th>
+            <th>Tipo</th>
+            <th>Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (cuenta of cuentas(); track cuenta.id) {
+            <tr>
+              <td>{{ cuenta.numeroCuenta }}</td>
+              <td>{{ cuenta.tipoCuenta }}</td>
+              <td>{{ cuenta.saldo | currency }}</td>
+            </tr>
+          } @empty {
+            <tr><td colspan="3">El cliente no tiene cuentas activas.</td></tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>Selecciona un cliente para ver sus cuentas.</p>
+    }
+  </div>
+</div>
