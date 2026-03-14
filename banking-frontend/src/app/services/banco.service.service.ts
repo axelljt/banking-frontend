@@ -35,7 +35,7 @@ registrarMovimiento(cuentaId: number, monto: number, tipo: string): Observable<a
   };
 
   // La URL debe ser /movimientos/cuentas/{id}
-  return this.http.post(`${this.apiUrl}/movimientos/cuentas/${cuentaId}`, body);
+  return this.http.post(`${this.apiUrl}/movimientos/cuentas/${cuentaId}/movimientos`, body);
 }
 
   
