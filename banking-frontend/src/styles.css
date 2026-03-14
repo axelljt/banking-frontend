@@ -13,3 +13,24 @@
 .nav-link:hover {
   background-color: #e9ecef;
 }
+
+/* Bordes suaves y sombreados */
+.card {
+  border-radius: 12px;
+}
+
+.table thead th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-top: none;
+}
+
+/* Estilo para los badges (pastillas de estado) */
+.bg-success-subtle { background-color: #d1e7dd !important; }
+.bg-danger-subtle { background-color: #f8d7da !important; }
+
+/* Para que la tabla se vea bien en el contenedor blanco */
+.table {
+  margin-bottom: 0;
+}

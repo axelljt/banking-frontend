@@ -10,15 +10,16 @@ export interface Persona {
   email: string;
 }
 
-export interface Cliente extends Persona {
- id?: number;              // ID de la tabla Persona/Cliente
-nombre: string;
+export interface Cliente {
+  id: number;
+  nombre: string;
   apellido: string;
   direccion: string;
   telefono: string;
   email: string;
-  password:string;
   estado: boolean;
+  // Agregamos esto por si quieres mostrar cuántas cuentas tiene cada uno
+  cuentas?: any[]; 
 }
 
 export interface Cuenta {

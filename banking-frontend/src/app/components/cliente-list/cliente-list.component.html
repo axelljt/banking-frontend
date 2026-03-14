@@ -1,43 +1,55 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Creación de Usuarios</h2>
-    <button class="btn btn-primary btn-sm">Nuevos Datos</button>
-  </div>
+<div class="card border-0">
+  <div class="card-body p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="text-secondary">Gestión de Clientes</h3>
+      <button class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-person-plus"></i> Actualizar Lista
+      </button>
+    </div>
 
-  <div *ngIf="cargando" class="text-center">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p>Cargando datos desde la API...</p>
-  </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="bg-light">
+          <tr>
+            <th class="text-muted" style="width: 80px;">ID</th>
+            <th class="text-muted">Nombre Completo</th>
+            <th class="text-muted">Contacto (Email/Tel)</th>
+            <th class="text-muted">Dirección</th>
+            <th class="text-muted text-center">Estado</th>
+            <th class="text-muted text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td><strong>#{{ cliente.id }}</strong></td>
+            <td>
+              <div class="fw-bold">{{ cliente.nombre }} {{ cliente.apellido }}</div>
+            </td>
+            <td>
+              <small class="d-block text-primary">{{ cliente.email }}</small>
+              <small class="text-muted">{{ cliente.telefono }}</small>
+            </td>
+            <td>
+              <span class="text-truncate d-inline-block" style="max-width: 200px;">
+                {{ cliente.direccion }}
+              </span>
+            </td>
+            <td class="text-center">
+              <span class="badge rounded-pill" 
+                    [ngClass]="cliente.estado ? 'bg-success-subtle text-success border border-success' : 'bg-danger-subtle text-danger border border-danger'">
+                {{ cliente.estado ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-light btn-sm border">Editar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="!cargando && clientes.length > 0" class="table-responsive shadow-sm">
-    <table class="table table-hover table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Nombre Completo</th>
-          <th>Dirección</th>
-          <th>Teléfono</th>
-          <th>Contraseña</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cliente of clientes">
-         <td>{{ cliente.id }}</td>
-          <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
-          <td>{{ cliente.direccion }}</td>
-          <td>{{ cliente.telefono }}</td>
-          <td>{{ cliente.password }}</td>
-          <td>
-            <span class="badge" [ngClass]="cliente.estado ? 'bg-success' : 'bg-danger'">
-              {{ cliente.estado ? 'Activo' : 'Inactivo' }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="!cargando && clientes.length === 0" class="alert alert-warning">
-    No se encontraron clientes en la base de datos. Asegúrate de que el script SQL se haya ejecutado.
+    <div *ngIf="clientes.length === 0" class="alert alert-info mt-3">
+      No hay clientes registrados o el servidor está desconectado.
+    </div>
   </div>
 </div>
