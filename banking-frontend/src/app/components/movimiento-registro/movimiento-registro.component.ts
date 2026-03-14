@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Movimiento } from '../../models/banco.models';
 import { BancoService } from '../../services/banco.service.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-movimiento-registro',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './movimiento-registro.component.html',
   styleUrl: './movimiento-registro.component.css'
 })
