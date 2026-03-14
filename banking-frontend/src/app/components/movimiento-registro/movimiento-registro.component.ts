@@ -12,23 +12,30 @@ import { CommonModule } from '@angular/common';
 })
 export class MovimientoRegistroComponent {
 
-  movimiento: Movimiento = {
+  movimiento = {
     tipoMovimiento: 'Retiro',
     valor: 0,
-    cuentaId: 1 // Aquí podrías cargar una lista de cuentas reales
+    cuentaId: 0
   };
 
   constructor(private bancoService: BancoService) {}
+ejecutar() {
+  // Creamos una copia limpia para no alterar el formulario
+  const dataEnvio = {
+    tipoMovimiento: this.movimiento.tipoMovimiento,
+    valor: Number(this.movimiento.valor),
+    cuentaId: Number(this.movimiento.cuentaId) // Forzamos a Number
+  };
 
-  registrar() {
-    this.bancoService.registrarMovimiento(this.movimiento.cuentaId, this.movimiento).subscribe({
-      next: (res) => {
-        alert('Movimiento realizado con éxito. Nuevo saldo: ' + res.saldoDisponible);
-      },
-      error: (err) => {
-        // Captura los errores 400 del backend (Saldo no disponible / Cupo excedido)
-        alert('Error en la transacción: ' + (err.error || 'Ocurrió un error inesperado'));
-      }
-    });
-  }
+  this.bancoService.registrarMovimiento(dataEnvio).subscribe({
+    next: (res) => {
+      alert('¡Éxito! Saldo actualizado.');
+    },
+    error: (err) => {
+      console.error('Detalle del error:', err);
+      // Si el error viene del backend (ej: cupo excedido), mostramos el mensaje
+      alert('Error: ' + (err.error?.message || err.error || 'Fallo en el servidor'));
+    }
+  });
+}
 }

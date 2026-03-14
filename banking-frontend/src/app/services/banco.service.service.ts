@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Cliente, Cuenta, Movimiento } from '../models/banco.models';
 
 @Injectable({ providedIn: 'root' })
 export class BancoService {
   // Ajusta esta URL según los controladores de tu Spring Boot
-  private apiUrl = 'http://localhost:8080/api'; 
+  private apiUrl = 'http://localhost:8080'; 
 
   constructor(private http: HttpClient) {}
 
@@ -27,15 +27,29 @@ export class BancoService {
 
   // MOVIMIENTOS (El punto crítico de la prueba)
   // Usamos HttpParams porque en el backend definimos @RequestParam("cuentaId")
-  registrarMovimiento(cuentaId: number, movimiento: any): Observable<any> {
-    const params = new HttpParams().set('cuentaId', cuentaId.toString());
-    return this.http.post(`${this.apiUrl}/movimientos`, movimiento, { params });
-  }
+ registrarMovimiento(data: any): Observable<any> {
+  // Aseguramos que el ID sea string para el parámetro de URL
+  const params = new HttpParams().set('cuentaId', data.cuentaId.toString());
 
+  // El cuerpo solo lleva la data del movimiento
+  const body = {
+    tipoMovimiento: data.tipoMovimiento,
+    valor: data.valor
+  };
+
+  // POST(url, body, opciones)
+  return this.http.post(`${this.apiUrl}/movimientos`, body, { params });
+}
+
+  
   // REPORTES
   getReporte(fechaInicio: string, fechaFin: string, clienteId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/movimientos/reporte`, {
-      params: { fechaInicio, fechaFin, clienteId: clienteId.toString() }
-    });
-  }
+  const params = new HttpParams()
+    .set('inicio', fechaInicio)   // Cambiado de 'fechaInicio' a 'inicio'
+    .set('fin', fechaFin)         // Cambiado de 'fechaFin' a 'fin'
+    .set('clienteId', clienteId.toString());
+
+  return this.http.get<any[]>(`${this.apiUrl}/movimientos/reporte`, { params });
+}
+  
 }

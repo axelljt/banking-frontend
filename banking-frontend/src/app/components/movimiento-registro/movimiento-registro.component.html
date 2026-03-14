@@ -1,27 +1,26 @@
-<div class="container mt-4">
-  <div class="card shadow">
-    <div class="card-header bg-primary text-white">
-      <h4 class="mb-0">Registrar Nuevo Movimiento</h4>
+<div class="card shadow-sm border-0 p-4">
+  <h4 class="text-primary mb-4">Nueva Transacción</h4>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Número de Cuenta</label>
+      <input type="text" class="form-control" [(ngModel)]="movimiento.cuentaId" placeholder="Ej: 478758">
     </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label">ID de Cuenta</label>
-          <input type="number" class="form-control" [(ngModel)]="movimiento.cuentaId">
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Tipo de Movimiento</label>
-          <select class="form-select" [(ngModel)]="movimiento.tipoMovimiento">
-            <option value="Deposito">Depósito (+)</option>
-            <option value="Retiro">Retiro (-)</option>
-          </select>
-        </div>
-        <div class="col-md-12 mb-3">
-          <label class="form-label">Valor</label>
-          <input type="number" class="form-control" [(ngModel)]="movimiento.valor" placeholder="0.00">
-        </div>
+    <div class="col-md-6">
+      <label class="form-label">Tipo</label>
+      <select class="form-select" [(ngModel)]="movimiento.tipoMovimiento">
+        <option value="Deposito">Depósito (+)</option>
+        <option value="Retiro">Retiro (-)</option>
+      </select>
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Valor (Monto)</label>
+      <div class="input-group">
+        <span class="input-group-text">$</span>
+        <input type="number" class="form-control" [(ngModel)]="movimiento.valor">
       </div>
-      <button class="btn btn-primary w-100" (click)="registrar()">Procesar Transacción</button>
+    </div>
+    <div class="col-12 mt-4">
+      <button class="btn btn-primary w-100 py-2" (click)="ejecutar()">Procesar Movimiento</button>
     </div>
   </div>
 </div>

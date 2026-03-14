@@ -1,0 +1,58 @@
+<div class="card border-0 shadow-sm p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="text-primary">Estado de Cuenta</h4>
+    <button class="btn btn-outline-success btn-sm" (click)="consultar()">
+      <i class="bi bi-file-earmark-pdf"></i> Refrescar
+    </button>
+  </div>
+
+  <div class="row g-3 mb-4 bg-light p-3 rounded">
+    <div class="col-md-3">
+      <label class="form-label small fw-bold">Fecha Inicio</label>
+      <input type="date" class="form-control" [(ngModel)]="fechaInicio">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small fw-bold">Fecha Fin</label>
+      <input type="date" class="form-control" [(ngModel)]="fechaFin">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label small fw-bold">ID Cliente</label>
+      <input type="number" class="form-control" [(ngModel)]="clienteId" placeholder="Ej: 1">
+    </div>
+    <div class="col-md-2 d-grid">
+      <label class="form-label invisible">Acción</label>
+      <button class="btn btn-primary" (click)="consultar()">Generar</button>
+    </div>
+  </div>
+
+  <div class="table-responsive" *ngIf="listaReporte.length > 0">
+  <table class="table table-striped mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Fecha</th>
+        <th>Cuenta</th>
+        <th>Tipo</th>
+        <th>Saldo Inicial</th>
+        <th>Movimiento</th>
+        <th>Saldo Disponible</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaReporte">
+        <td>{{ item.fecha[2] }}/{{ item.fecha[1] }}/{{ item.fecha[0] }}</td>
+        <td>{{ item.numeroCuenta }}</td>
+        <td>{{ item.tipo }}</td>
+        <td>{{ item.saldoInicial | currency }}</td>
+        <td [class.text-danger]="item.movimiento < 0" [class.text-success]="item.movimiento > 0">
+          <strong>{{ item.movimiento | currency }}</strong>
+        </td>
+        <td class="fw-bold">{{ item.saldoDisponible | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="listaReporte.length === 0" class="alert alert-info mt-3">
+  No hay movimientos para mostrar. Prueba con otros filtros.
+</div>
+</div>
