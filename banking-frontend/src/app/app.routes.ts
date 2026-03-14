@@ -8,4 +8,5 @@ export const routes: Routes = [
   { path: 'clientes', component: ClienteListComponent },
   { path: 'cuentas', component: CuentaFormComponent },
   { path: 'movimientos', component: MovimientoRegistroComponent },
+  { path: 'reportes', component: ClienteListComponent }
 ];

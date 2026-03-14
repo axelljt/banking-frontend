@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+.nav-pills .nav-link.active {
+  background-color: #0d6efd; /* Azul de Bootstrap */
+  color: white;
+}
+
+.nav-link {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.nav-link:hover {
+  background-color: #e9ecef;
+}

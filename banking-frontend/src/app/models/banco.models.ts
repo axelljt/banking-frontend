@@ -11,8 +11,13 @@ export interface Persona {
 }
 
 export interface Cliente extends Persona {
-  clienteId: string;
-  password?: string;
+ id?: number;              // ID de la tabla Persona/Cliente
+nombre: string;
+  apellido: string;
+  direccion: string;
+  telefono: string;
+  email: string;
+  password:string;
   estado: boolean;
 }
 

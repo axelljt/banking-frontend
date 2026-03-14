@@ -1,14 +1,35 @@
-<nav class="navbar navbar-dark bg-primary mb-4">
-  <div class="container">
-    <a class="navbar-brand" href="#">🏦 Banco Management System</a>
-    <div class="navbar-nav d-flex flex-row">
-      <a class="nav-link" routerLink="/clientes">Clientes</a>
-      <a class="nav-link" routerLink="/cuentas">Cuentas</a>
-      <a class="nav-link" routerLink="/movimientos">Movimientos</a>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-md-3 col-lg-2">
+      <h4 class="mb-4">Banking System</h4>
+      <ul class="nav nav-pills flex-column shadow-sm p-2 bg-light rounded">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/clientes" routerLinkActive="active">
+             Clientes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cuentas" routerLinkActive="active">
+             Cuentas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/movimientos" routerLinkActive="active">
+             Movimientos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/reportes" routerLinkActive="active">
+             Reportes
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-9 col-lg-10">
+      <div class="p-4 border rounded shadow-sm bg-white min-vh-100">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-</nav>
-
-<div class="container">
-  <router-outlet></router-outlet>
 </div>
