@@ -39,3 +39,14 @@ export interface Movimiento {
   saldoDisponible?: number;
   cuentaId: number;
 }
+
+export interface EstadoCuenta {
+  fecha: string;
+  cliente: string;
+  numeroCuenta: string;
+  tipo: string;
+  saldoInicial: number;
+  estado: boolean;
+  movimiento: number;
+  saldoDisponible: number;
+}

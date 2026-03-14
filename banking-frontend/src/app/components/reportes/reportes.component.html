@@ -26,33 +26,39 @@
   </div>
 
   <div class="table-responsive" *ngIf="listaReporte.length > 0">
-  <table class="table table-striped mt-3">
-    <thead class="table-dark">
-      <tr>
-        <th>Fecha</th>
-        <th>Cuenta</th>
-        <th>Tipo</th>
-        <th>Saldo Inicial</th>
-        <th>Movimiento</th>
-        <th>Saldo Disponible</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of listaReporte">
-        <td>{{ item.fecha[2] }}/{{ item.fecha[1] }}/{{ item.fecha[0] }}</td>
-        <td>{{ item.numeroCuenta }}</td>
-        <td>{{ item.tipo }}</td>
-        <td>{{ item.saldoInicial | currency }}</td>
-        <td [class.text-danger]="item.movimiento < 0" [class.text-success]="item.movimiento > 0">
-          <strong>{{ item.movimiento | currency }}</strong>
-        </td>
-        <td class="fw-bold">{{ item.saldoDisponible | currency }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <table class="table table-hover table-bordered mt-3 shadow-sm">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th> <th>Número Cuenta</th>
+          <th>Tipo</th>
+          <th>Saldo Inicial</th>
+          <th>Estado</th> <th>Movimiento</th>
+          <th>Saldo Disponible</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let item of listaReporte">
+          <td>{{ item.fecha | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ item.cliente }}</td>
+          <td>{{ item.numeroCuenta }}</td>
+          <td>{{ item.tipo }}</td>
+          <td>{{ item.saldoInicial | currency }}</td>
+          <td>
+            <span class="badge" [ngClass]="item.estado ? 'bg-success' : 'bg-danger'">
+              {{ item.estado ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td [class.text-danger]="item.movimiento < 0" [class.text-success]="item.movimiento > 0">
+            <strong>{{ (item.movimiento > 0 ? '+' : '') }}{{ item.movimiento | currency }}</strong>
+          </td>
+          <td class="fw-bold table-info">{{ item.saldoDisponible | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div *ngIf="listaReporte.length === 0" class="alert alert-info mt-3">
-  No hay movimientos para mostrar. Prueba con otros filtros.
-</div>
+  <div *ngIf="listaReporte.length === 0" class="alert alert-info mt-3 text-center">
+    <i class="bi bi-info-circle me-2"></i> No hay movimientos para mostrar. Prueba con otros filtros.
+  </div>
 </div>

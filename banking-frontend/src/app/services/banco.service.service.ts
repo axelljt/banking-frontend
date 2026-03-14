@@ -12,13 +12,13 @@ export class BancoService {
 
   // CLIENTES
   getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.apiUrl}/clientes`);
+    return this.http.get<Cliente[]>(`${this.apiUrl}/api/clientes`);
   }
 
   // CUENTAS
   // Si tu backend busca cuentas por cliente:
   getCuentasByCliente(clienteId: number): Observable<Cuenta[]> {
-    return this.http.get<Cuenta[]>(`${this.apiUrl}/cuentas/cliente/${clienteId}`);
+    return this.http.get<Cuenta[]>(`${this.apiUrl}/api/cuentas/cliente/${clienteId}`);
   }
 
   crearCuenta(clienteId: number, cuenta: Cuenta): Observable<Cuenta> {
@@ -27,18 +27,15 @@ export class BancoService {
 
   // MOVIMIENTOS (El punto crítico de la prueba)
   // Usamos HttpParams porque en el backend definimos @RequestParam("cuentaId")
- registrarMovimiento(data: any): Observable<any> {
-  // Aseguramos que el ID sea string para el parámetro de URL
-  const params = new HttpParams().set('cuentaId', data.cuentaId.toString());
-
-  // El cuerpo solo lleva la data del movimiento
-  const body = {
-    tipoMovimiento: data.tipoMovimiento,
-    valor: data.valor
+ // banco.service.ts
+registrarMovimiento(cuentaId: number, monto: number, tipo: string): Observable<any> {
+  const body = { 
+    monto: monto, 
+    tipo: tipo // Verifica que en Java sea 'tipo' y no 'tipoMovimiento'
   };
 
-  // POST(url, body, opciones)
-  return this.http.post(`${this.apiUrl}/movimientos`, body, { params });
+  // La URL debe ser /movimientos/cuentas/{id}
+  return this.http.post(`${this.apiUrl}/movimientos/cuentas/${cuentaId}`, body);
 }
 
   
