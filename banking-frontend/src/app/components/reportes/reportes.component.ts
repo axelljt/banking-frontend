@@ -21,18 +21,29 @@ export class ReporteComponent {
 
  // En reporte.component.ts
 consultar() {
-  this.listaReporte = []; // Limpiamos para forzar el refresco
+  this.listaReporte = []; 
   
+  // Verificamos que los campos tengan valor antes de llamar
+  if (!this.fechaInicio || !this.fechaFin || !this.clienteId) {
+    alert('Por favor complete todos los filtros');
+    return;
+  }
+
   this.bancoService.getReporte(this.fechaInicio, this.fechaFin, this.clienteId).subscribe({
-    next: (res: any) => {
+    next: (res: any[]) => { // Le decimos que es un array
       console.log('Datos que llegaron:', res);
       
-      // Accedemos a la propiedad que vimos en tu log anterior
-      if (res && res.reporteJson) {
-        this.listaReporte = res.reporteJson;
+      // ASIGNACIÓN DIRECTA: res ya es el array [ {...}, {...} ]
+      if (res && Array.isArray(res)) {
+        this.listaReporte = res;
+      } else {
+        console.warn('La respuesta no es un array:', res);
       }
     },
-    error: (err) => alert('Error al cargar datos')
+    error: (err) => {
+      console.error(err);
+      alert('Error al cargar datos');
+    }
   });
 }
 }

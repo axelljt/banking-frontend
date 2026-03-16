@@ -35,7 +35,7 @@ registrarMovimiento(cuentaId: number, monto: number, tipo: string): Observable<a
   };
 
   // La URL debe ser /movimientos/cuentas/{id}
-  return this.http.post(`${this.apiUrl}/movimientos/cuentas/${cuentaId}/movimientos`, body);
+  return this.http.post(`${this.apiUrl}/api/movimientos/cuenta/${cuentaId}`, body);
 }
 
   
@@ -46,7 +46,7 @@ registrarMovimiento(cuentaId: number, monto: number, tipo: string): Observable<a
     .set('fin', fechaFin)         // Cambiado de 'fechaFin' a 'fin'
     .set('clienteId', clienteId.toString());
 
-  return this.http.get<any[]>(`${this.apiUrl}/movimientos/reporte`, { params });
+  return this.http.get<any[]>(`${this.apiUrl}/api/movimientos/reporte`, { params });
 }
   
 }

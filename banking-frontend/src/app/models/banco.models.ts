@@ -32,12 +32,11 @@ export interface Cuenta {
 }
 
 export interface Movimiento {
-  id?: number;
-  fecha?: Date | string;
-  tipoMovimiento: 'Retiro' | 'Deposito';
-  valor: number;
-  saldoDisponible?: number;
-  cuentaId: number;
+ id?: number;
+  fecha?: string;
+  tipo: 'Deposito' | 'Retiro';
+  monto: number;
+  saldoActual?: number;
 }
 
 export interface EstadoCuenta {
