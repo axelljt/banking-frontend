@@ -18,30 +18,29 @@ export class ReporteComponent {
   clienteId: number = 0;
   
   listaReporte: any[] = [];
+cargando: boolean = false; 
+busquedaRealizada: boolean = false;
 
   constructor(private bancoService: BancoService) {}
 
 consultar() {
-  this.listaReporte = []; 
-  
   if (!this.fechaInicio || !this.fechaFin || !this.clienteId) {
-    alert('Por favor complete todos los filtros');
+    alert('Por favor selecciona las fechas y el ID del cliente');
     return;
   }
 
+  this.cargando = true;
+  this.busquedaRealizada = true;
+  this.listaReporte = [];
+
   this.bancoService.getReporte(this.fechaInicio, this.fechaFin, this.clienteId).subscribe({
-    next: (res: any[]) => { // Le decimos que es un array
-      console.log('Datos que llegaron:', res);
-      
-      if (res && Array.isArray(res)) {
-        this.listaReporte = res;
-      } else {
-        console.warn('La respuesta no es un array:', res);
-      }
+    next: (res) => {
+      this.listaReporte = res;
+      this.cargando = false;
     },
     error: (err) => {
-      console.error(err);
-      alert('Error al cargar datos');
+      this.cargando = false;
+      alert('Error al conectar con el servidor');
     }
   });
 }
