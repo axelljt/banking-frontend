@@ -11,10 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './movimiento-registro.component.css'
 })
 export class MovimientoRegistroComponent {
-// 1. Declara la variable al inicio de la clase
-reporte: any = null;
 
-// ... dentro de tu método de envío:
+reporte: any = null;
 
   movimiento = {
     tipoMovimiento: 'Retiro',
@@ -39,7 +37,7 @@ this.bancoService.registrarMovimiento(
 ).subscribe({
     next: (data) => {
         console.log('Respuesta del servidor:', data);
-        this.reporte = data; // Aquí guardamos el JSON que recibimos del Java
+        this.reporte = data; 
         alert("Movimiento procesado con éxito");
     },
     error: (err) => {

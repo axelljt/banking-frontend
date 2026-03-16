@@ -18,7 +18,6 @@ export interface Cliente {
   telefono: string;
   email: string;
   estado: boolean;
-  // Agregamos esto por si quieres mostrar cuántas cuentas tiene cada uno
   cuentas?: any[]; 
 }
 

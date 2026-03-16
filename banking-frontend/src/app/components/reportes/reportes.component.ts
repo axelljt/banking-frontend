@@ -49,14 +49,12 @@ exportarPDF() {
   const doc = new jsPDF();
   const fechaActual = new Date().toLocaleString();
 
-  // 1. Encabezado del PDF
   doc.setFontSize(18);
   doc.text('Estado de Cuenta', 14, 20);
   doc.setFontSize(10);
   doc.text(`Fecha de generación: ${fechaActual}`, 14, 30);
   doc.text(`Cliente ID: ${this.clienteId}`, 14, 35);
 
-  // 2. Mapear los datos de listaReporte a un formato que entienda la tabla
   const cuerpoTabla = this.listaReporte.map(item => [
     new Date(item.fecha).toLocaleDateString(),
     item.cliente,
@@ -68,16 +66,14 @@ exportarPDF() {
     `$${item.saldoDisponible.toFixed(2)}`
   ]);
 
-  // 3. Generar la tabla
   autoTable(doc, {
     startY: 45,
     head: [['Fecha', 'Cliente', 'N° Cuenta', 'Tipo', 'S. Inicial', 'Estado', 'Movimiento', 'S. Disponible']],
     body: cuerpoTabla,
     theme: 'striped',
-    headStyles: { fillColor: [41, 128, 185] } // Un azul elegante
+    headStyles: { fillColor: [41, 128, 185] } 
   });
 
-  // 4. Guardar el archivo
   doc.save(`Reporte_Estado_Cuenta_${this.clienteId}.pdf`);
 }
 }
